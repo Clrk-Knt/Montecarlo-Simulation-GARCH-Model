@@ -24,7 +24,7 @@ mu = garch_results.params["mu"]
 last_vol = garch_results.conditional_volatility.iloc[-1]
 S_0 = prices.iloc[-1]
 
-num_days = 365
+num_days = 255
 num_simulations = 2000
 dt = 1 / 255
 
@@ -62,7 +62,7 @@ var_95 = np.percentile(returns_dist, 5)
 
 print(f"--- RISULTATI NUMERICI PREVISTI ---")
 print(f"Prezzo di Entrata (S_0): {S_0:.2f}")
-print(f"Prezzo Medio Previsto: {expected_final_price:.2f}")
+print(f"Prezzo Medio Previsto (255 Giorni di Borsa): {expected_final_price:.2f}")
 print(f"Value at Risk (VaR 95%): {var_95*100:.2f}%")
 
 plt.figure(figsize=(12, 6))
@@ -90,7 +90,7 @@ plt.axhline(
     color="crimson",
     linestyle="--",
     linewidth=2,
-    label=f"Prezzo di Uscita Previsto: {expected_final_price:.2f}",
+    label=f"Prezzo di Uscita Previsto (1 Anno): {expected_final_price:.2f}",
 )
 
 stats_box = (
@@ -112,11 +112,12 @@ plt.gca().text(
 )
 
 plt.title(
-    "Simulazione Monte Carlo GARCH - Proiezioni e Analisi di Rischio",
+    "Simulazione Monte Carlo GARCH - Proiezioni e Analisi di Rischio (255"
+    " Giorni)",
     fontsize=14,
     fontweight="bold",
 )
-plt.xlabel("Passi di Simulazione (365 Giorni)", fontsize=11)
+plt.xlabel("Giorni di Borsa Aperta (Orizzonte 1 Anno)", fontsize=11)
 plt.ylabel("Prezzo Stimato dell'Indice", fontsize=11)
 plt.legend(loc="lower right", frameon=True, facecolor="white")
 plt.grid(True, linestyle="--", alpha=0.4)
